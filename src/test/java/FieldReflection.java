@@ -71,9 +71,9 @@ public class FieldReflection {
         Child.class.getField("not exists");
     }
 
-    @Test(expected = NoSuchFieldException.class)
+    @Test
     public void getField_public() throws NoSuchFieldException {
-        Child.class.getField("publicField");
+        assertThat(Child.class.getField("publicField").toGenericString(), is("public int Child.publicField"));
     }
 
     @Test
