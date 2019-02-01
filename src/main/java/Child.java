@@ -1,15 +1,15 @@
 /**
  * Created by mtumilowicz on 2019-02-01.
  */
-class Child extends Parent {
+class Child extends Parent implements ChildInterface {
     
-    private int privateChildField;
-    String packageChildPrivateField;
-    protected Object protectedChildField;
-    public int publicChildField;
+    private int privateField;
+    String packagePrivateField;
+    protected Object protectedField;
+    public int publicField;
     
 }
 
 interface ChildInterface {
-    String ChildInterfaceField = "";
+    String FIELD = "";
 }
