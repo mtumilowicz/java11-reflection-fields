@@ -2,12 +2,12 @@
  * Created by mtumilowicz on 2019-02-01.
  */
 class Parent implements ParentInterface {
-    private int privateField;
-    String packagePrivateField;
-    protected Object protectedField;
-    public int publicField;
+    private int privateParentField;
+    String packagePrivateParentField;
+    protected Object protectedParentField;
+    public int publicParentField;
 }
 
 interface ParentInterface {
-    String FIELD = "";
+    String PARENT_FIELD = "";
 }
