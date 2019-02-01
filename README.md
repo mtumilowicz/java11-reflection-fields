@@ -12,12 +12,12 @@ fields information:
             of the class or interface (including public fields
             from superclasses and superinterfaces)
         * `Field[] getDeclaredFields()` - returns 
-            all fields declared by the class or interface (
-            excluding inherited fields)
+            all fields explicitly declared by the class or interface 
+            (not inherited)
     * if we know field's name:
         * `Field getField(String name)` - you can think
-            of this methods as finding field in `getFields()`
-            by name or throwing `NoSuchFieldException` (if field
+            of this methods as a way of trying to find a field in `getFields()`
+            by its name or throwing `NoSuchFieldException` (if the field
             cannot be found)
             
             algorithm (field could be shadowed):
@@ -34,9 +34,9 @@ fields information:
             is thrown.
             
         * `Field getDeclaredField(String name)` - you can think
-            of this methods as finding field in 
-            `getDeclaredFields()` by name or throwing 
-            `NoSuchFieldException` (if field cannot be found)
+            of this methods as a way of trying to find a field in 
+            `getDeclaredFields()` by its name or throwing 
+            `NoSuchFieldException` (if the field cannot be found)
 # project description
 We will show how to obtain info about declared fields.
 
