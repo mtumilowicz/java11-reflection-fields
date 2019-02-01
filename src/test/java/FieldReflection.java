@@ -23,6 +23,17 @@ public class FieldReflection {
         assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ChildInterface.FIELD"));
     }
+
+    @Test
+    public void getFields_parentClass() {
+        var fields = Parent.class.getFields();
+
+        assertThat(fields.length, is(2));
+
+        String fieldsAsString = Arrays.toString(fields);
+        assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
+    }
     
     @Test
     public void getDeclaredFields_childClass() {
@@ -35,5 +46,18 @@ public class FieldReflection {
         assertThat(fieldsAsString, containsString("java.lang.String Child.packagePrivateField"));
         assertThat(fieldsAsString, containsString("protected java.lang.Object Child.protectedField"));
         assertThat(fieldsAsString, containsString("public int Child.publicField"));
+    }
+
+    @Test
+    public void getDeclaredFields_parentClass() {
+        var fields = Parent.class.getDeclaredFields();
+
+        assertThat(fields.length, is(4));
+
+        String fieldsAsString = Arrays.toString(fields);
+        assertThat(fieldsAsString, containsString("private int Parent.privateField"));
+        assertThat(fieldsAsString, containsString("java.lang.String Parent.packagePrivateField"));
+        assertThat(fieldsAsString, containsString("protected java.lang.Object Parent.protectedField"));
+        assertThat(fieldsAsString, containsString("public int Parent.publicField"));
     }
 }
