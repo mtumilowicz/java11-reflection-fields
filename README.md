@@ -48,6 +48,7 @@ Class structure is as simple as it can be:
         String packagePrivateField;
         protected Object protectedField;
         public int publicField;
+        public String publicParentField;
     }
     
     interface ParentInterface {
@@ -75,23 +76,25 @@ All tests are in `FieldReflection` class
     * child
         ```
         var fields = Child.class.getFields();
-        
-        assertThat(fields.length, is(4));
-        
+
+        assertThat(fields.length, is(5));
+
         String fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("public int Child.publicField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ChildInterface.FIELD"));
         ```
     * parent
         ```
         var fields = Parent.class.getFields();
-        
-        assertThat(fields.length, is(2));
-        
+
+        assertThat(fields.length, is(3));
+
         String fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
         ```
 * `getDeclaredFields`
@@ -110,34 +113,63 @@ All tests are in `FieldReflection` class
     * parent
         ```
         var fields = Parent.class.getDeclaredFields();
-        
-        assertThat(fields.length, is(4));
-        
+
+        assertThat(fields.length, is(5));
+
         String fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("private int Parent.privateField"));
         assertThat(fieldsAsString, containsString("java.lang.String Parent.packagePrivateField"));
         assertThat(fieldsAsString, containsString("protected java.lang.Object Parent.protectedField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
         ```
 * get field by name
-    * private field - exception
+    * private field - `NoSuchFieldException`
         ```
         @Test(expected = NoSuchFieldException.class)
         public void getField_notPublic() throws NoSuchFieldException {
             Child.class.getField("privateField");
         }
         ```
-    * field that does not exist
+    * field that does not exist - `NoSuchFieldException`
         ```
         @Test(expected = NoSuchFieldException.class)
         public void getField_notExists() throws NoSuchFieldException {
             Child.class.getField("not exists");
         }
         ```
-    * public field
+    * public field (shadowed)
         ```
-        @Test
-        public void getField_public() throws NoSuchFieldException {
-            assertThat(Child.class.getField("publicField").toGenericString(), is("public int Child.publicField"));
+        assertThat(Child.class.getField("publicField").toGenericString(), 
+                is("public int Child.publicField"));
+        ```
+    * from parent
+        ```
+        assertThat(Child.class.getField("publicParentField").toGenericString(), 
+                is("public java.lang.String Parent.publicParentField"));
+        ```
+* get declared field by name
+    * private field
+        ```
+        assertThat(Child.class.getDeclaredField("privateField").toGenericString(), 
+                is("private int Child.privateField"));
+        ```
+    * field that does not exist - `NoSuchFieldException`
+        ```
+        @Test(expected = NoSuchFieldException.class)
+        public void getDeclaredField_notExists() throws NoSuchFieldException {
+            Child.class.getDeclaredField("not exists");
+        }
+        ```
+    * public field (shadowed)
+        ```
+        assertThat(Child.class.getDeclaredField("publicField").toGenericString(),
+                is("public int Child.publicField"));
+        ```
+    * from parent - `NoSuchFieldException`
+        ```
+        @Test(expected = NoSuchFieldException.class)
+        public void getDeclaredField_public_fromParent() throws NoSuchFieldException {
+            Child.class.getDeclaredField("publicParentField");
         }
         ```
