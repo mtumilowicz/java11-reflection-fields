@@ -15,11 +15,12 @@ public class FieldReflection {
     public void getFields_childClass() {
         var fields = Child.class.getFields();
 
-        assertThat(fields.length, is(4));
+        assertThat(fields.length, is(5));
 
         String fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("public int Child.publicField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ChildInterface.FIELD"));
     }
@@ -28,10 +29,11 @@ public class FieldReflection {
     public void getFields_parentClass() {
         var fields = Parent.class.getFields();
 
-        assertThat(fields.length, is(2));
+        assertThat(fields.length, is(3));
 
         String fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
     }
     
@@ -52,13 +54,14 @@ public class FieldReflection {
     public void getDeclaredFields_parentClass() {
         var fields = Parent.class.getDeclaredFields();
 
-        assertThat(fields.length, is(4));
+        assertThat(fields.length, is(5));
 
         String fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("private int Parent.privateField"));
         assertThat(fieldsAsString, containsString("java.lang.String Parent.packagePrivateField"));
         assertThat(fieldsAsString, containsString("protected java.lang.Object Parent.protectedField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
     }
     
     @Test(expected = NoSuchFieldException.class)
@@ -72,13 +75,21 @@ public class FieldReflection {
     }
 
     @Test
-    public void getField_public() throws NoSuchFieldException {
-        assertThat(Child.class.getField("publicField").toGenericString(), is("public int Child.publicField"));
+    public void getField_public_shadowed() throws NoSuchFieldException {
+        assertThat(Child.class.getField("publicField").toGenericString(), 
+                is("public int Child.publicField"));
+    }
+
+    @Test
+    public void getField_public_fromParent() throws NoSuchFieldException {
+        assertThat(Child.class.getField("publicParentField").toGenericString(), 
+                is("public java.lang.String Parent.publicParentField"));
     }
 
     @Test
     public void getDeclaredField_notPublic() throws NoSuchFieldException {
-        assertThat(Child.class.getDeclaredField("privateField").toGenericString(), is("private int Child.privateField"));
+        assertThat(Child.class.getDeclaredField("privateField").toGenericString(), 
+                is("private int Child.privateField"));
     }
 
     @Test(expected = NoSuchFieldException.class)

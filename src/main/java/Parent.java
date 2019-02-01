@@ -6,6 +6,7 @@ class Parent implements ParentInterface {
     String packagePrivateField;
     protected Object protectedField;
     public int publicField;
+    public String publicParentField;
 }
 
 interface ParentInterface {
