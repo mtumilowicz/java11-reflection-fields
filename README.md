@@ -19,6 +19,20 @@ fields information:
             of this methods as finding field in `getFields()`
             by name or throwing `NoSuchFieldException` (if field
             cannot be found)
+            
+            algorithm (field could be shadowed):
+            
+            Let `C` be the class or interface represented by this object:
+            1. If `C` declares a public field with the name specified, that is the
+            field to be reflected.
+            1. If no field was found in step `a.` above, this algorithm is applied
+            recursively to each direct superinterface of `C`. The direct
+            superinterfaces are searched in the order they were declared.
+            1. If no field was found in steps `a.` and `b.` above, and `C` has a
+            superclass `S`, then this algorithm is invoked recursively upon `S`.
+            1. If `C` has no superclass, then a `NoSuchFieldException`
+            is thrown.
+            
         * `Field getDeclaredField(String name)` - you can think
             of this methods as finding field in 
             `getDeclaredFields()` by name or throwing 
@@ -104,4 +118,26 @@ All tests are in `FieldReflection` class
         assertThat(fieldsAsString, containsString("java.lang.String Parent.packagePrivateField"));
         assertThat(fieldsAsString, containsString("protected java.lang.Object Parent.protectedField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
+        ```
+* get field by name
+    * private field - exception
+        ```
+        @Test(expected = NoSuchFieldException.class)
+        public void getField_notPublic() throws NoSuchFieldException {
+            Child.class.getField("privateField");
+        }
+        ```
+    * field that does not exist
+        ```
+        @Test(expected = NoSuchFieldException.class)
+        public void getField_notExists() throws NoSuchFieldException {
+            Child.class.getField("not exists");
+        }
+        ```
+    * public field
+        ```
+        @Test
+        public void getField_public() throws NoSuchFieldException {
+            assertThat(Child.class.getField("publicField").toGenericString(), is("public int Child.publicField"));
+        }
         ```
