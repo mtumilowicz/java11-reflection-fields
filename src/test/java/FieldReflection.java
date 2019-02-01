@@ -60,4 +60,19 @@ public class FieldReflection {
         assertThat(fieldsAsString, containsString("protected java.lang.Object Parent.protectedField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
     }
+    
+    @Test(expected = NoSuchFieldException.class)
+    public void getField_notPublic() throws NoSuchFieldException {
+        Child.class.getField("privateField");
+    }
+
+    @Test(expected = NoSuchFieldException.class)
+    public void getField_notExists() throws NoSuchFieldException {
+        Child.class.getField("not exists");
+    }
+
+    @Test(expected = NoSuchFieldException.class)
+    public void getField_public() throws NoSuchFieldException {
+        Child.class.getField("publicField");
+    }
 }
