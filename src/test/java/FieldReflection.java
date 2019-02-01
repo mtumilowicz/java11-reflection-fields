@@ -75,4 +75,14 @@ public class FieldReflection {
     public void getField_public() throws NoSuchFieldException {
         Child.class.getField("publicField");
     }
+
+    @Test
+    public void getDeclaredField_notPublic() throws NoSuchFieldException {
+        assertThat(Child.class.getDeclaredField("privateField").toGenericString(), is("private int Child.privateField"));
+    }
+
+    @Test(expected = NoSuchFieldException.class)
+    public void getDeclaredField_notExists() throws NoSuchFieldException {
+        Child.class.getDeclaredField("not exists");
+    }
 }
