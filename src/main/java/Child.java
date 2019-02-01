@@ -3,13 +3,13 @@
  */
 class Child extends Parent implements ChildInterface {
     
-    private int privateChildField;
-    String packagePrivateChildField;
-    protected Object protectedChildField;
-    public int publicChildField;
+    private int privateField;
+    String packagePrivateField;
+    protected Object protectedField;
+    public int publicField;
     
 }
 
 interface ChildInterface {
-    String CHILD_FIELD = "";
+    String FIELD = "";
 }
