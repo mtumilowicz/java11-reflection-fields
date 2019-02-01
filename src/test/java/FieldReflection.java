@@ -96,4 +96,15 @@ public class FieldReflection {
     public void getDeclaredField_notExists() throws NoSuchFieldException {
         Child.class.getDeclaredField("not exists");
     }
+
+    @Test
+    public void getDeclaredField_public_shadowed() throws NoSuchFieldException {
+        assertThat(Child.class.getDeclaredField("publicField").toGenericString(),
+                is("public int Child.publicField"));
+    }
+
+    @Test(expected = NoSuchFieldException.class)
+    public void getDeclaredField_public_fromParent() throws NoSuchFieldException {
+        Child.class.getDeclaredField("publicParentField");
+    }
 }
