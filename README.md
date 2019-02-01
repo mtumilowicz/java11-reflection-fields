@@ -8,25 +8,12 @@ https://github.com/mtumilowicz/java-reflection
 * `Class` provides us with four methods to gather
 fields information:
     * all fields:
-        * `Field[] getFields()` - returns an array 
-            containing `Field` objects reflecting all
-            the accessible public fields of the class or 
-            interface represented by Class object.
-            
-            If this `Class` object represents a class, then 
-            this method returns the public fields of the 
-            class and of all its superclasses and
-            superinterfaces.
-            
-            If this `Class` object represents an interface, 
-            then this method returns the fields of the interface 
-            and of all its superinterfaces.
+        * `Field[] getFields()` - returns all public fields 
+            of the class or interface (including public fields
+            from superclasses and superinterfaces)
         * `Field[] getDeclaredFields()` - returns 
-            an array of `Field` objects reflecting all the fields
-            declared by the class or interface represented by this
-            `Class` object. This includes public, protected, default
-            (package) access, and private fields, but excludes 
-            inherited fields.
+            all fields declared by the class or interface (
+            excluding inherited fields)
     * if we know field's name:
         * `Field getField(String name)` - Returns a `Field` 
             object that reflects the specified public member
@@ -47,4 +34,10 @@ fields information:
             a `Field` object that reflects the specified 
             declared field of the class or interface represented 
             by this `Class` object.
+            
+            `NoSuchFieldException` if a field with the specified 
+            name is not found.
+            
+            `SecurityException` if a security manager, <i>s</i>, 
+            is present and some conditions are met (https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html).
 # project description
