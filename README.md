@@ -24,3 +24,4 @@ fields information:
             `getDeclaredFields()` by name or throwing 
             `NoSuchFieldException` (if field cannot be found)
 # project description
+We will show how to obtain info about declared fields.
