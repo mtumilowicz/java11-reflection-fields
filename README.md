@@ -81,7 +81,7 @@ All tests are in `FieldReflection` class
 
         assertThat(fields.length, is(5));
 
-        String fieldsAsString = Arrays.toString(fields);
+        var fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("public int Child.publicField"));
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
         assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
@@ -94,7 +94,7 @@ All tests are in `FieldReflection` class
 
         assertThat(fields.length, is(3));
 
-        String fieldsAsString = Arrays.toString(fields);
+        var fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("public int Parent.publicField"));
         assertThat(fieldsAsString, containsString("public java.lang.String Parent.publicParentField"));
         assertThat(fieldsAsString, containsString("public static final java.lang.String ParentInterface.FIELD"));
@@ -106,7 +106,7 @@ All tests are in `FieldReflection` class
         
         assertThat(fields.length, is(4));
         
-        String fieldsAsString = Arrays.toString(fields);
+        var fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("private int Child.privateField"));
         assertThat(fieldsAsString, containsString("java.lang.String Child.packagePrivateField"));
         assertThat(fieldsAsString, containsString("protected java.lang.Object Child.protectedField"));
@@ -118,7 +118,7 @@ All tests are in `FieldReflection` class
 
         assertThat(fields.length, is(5));
 
-        String fieldsAsString = Arrays.toString(fields);
+        var fieldsAsString = Arrays.toString(fields);
         assertThat(fieldsAsString, containsString("private int Parent.privateField"));
         assertThat(fieldsAsString, containsString("java.lang.String Parent.packagePrivateField"));
         assertThat(fieldsAsString, containsString("protected java.lang.Object Parent.protectedField"));
