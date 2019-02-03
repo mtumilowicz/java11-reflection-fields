@@ -73,7 +73,7 @@ Class structure is as simple as it can be:
     }
     ```
 
-All tests are in `FieldReflection` class
+All tests are in `FieldReflectionTest` class
 * `getFields`
     * child
         ```
