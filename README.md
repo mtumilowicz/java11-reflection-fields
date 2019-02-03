@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/mtumilowicz/java11-reflection-fields.svg?branch=master)](https://travis-ci.com/mtumilowicz/java11-reflection-fields)
 
 # java11-reflection-fields
-Fields descriptors obtained via reflection.
+Using reflection to get information about the fields of a class.
 
 # preface
 https://github.com/mtumilowicz/java-reflection
