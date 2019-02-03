@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by mtumilowicz on 2019-02-01.
  */
-public class FieldReflection {
+public class FieldReflectionTest {
     
     @Test
     public void getFields_childClass() {
