@@ -4,8 +4,7 @@
 Using reflection to get information about the fields of a class.
 
 # preface
-https://github.com/mtumilowicz/java-reflection
-
+* https://github.com/mtumilowicz/java-reflection
 * `java.lang.reflect.Field` is used to represent field
 * `Class` provides us with four methods to gather
 fields information:
