@@ -21,7 +21,7 @@ fields information:
             by its name or throwing `NoSuchFieldException` (if the field
             cannot be found)
             
-            algorithm (field could be shadowed):
+            algorithm:
             
             Let `C` be the class or interface represented by this object:
             1. If `C` declares a public field with the name specified, that is the
